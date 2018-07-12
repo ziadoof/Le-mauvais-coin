@@ -47,9 +47,10 @@ class AppFixtures extends Fixture
     {
         return [
             // $userData = [$firstname, $lastname, $username, $password, $email, $roles,telephone, $photo];
-            ['jane_admin', 'Jane', 'Doe', 'dddd', 'jane_admin@symfony.com', ['ROLE_ADMIN'], 'http//:', 12345678],
-            ['tom_admin', 'Tom', ' Doe',  'dddd', 'tom_admin@symfony.com', ['ROLE_ADMIN'], 'http//:',12345678],
-            ['john_user','John ', ' Doe',  'dddd', 'john_user@symfony.com', ['ROLE_USER'], 'http//:',12345678]
+            ['Admin', 'Jane', 'naji', '1234', 'jane_admin@symfony.com', ['ROLE_ADMIN'], 'http//:', 12345678],
+            ['admin2', 'Tom', ' jdaydani',  '1234', 'tom_admin@symfony.com', ['ROLE_ADMIN'], 'http//:',12345678],
+            ['user','ziad ', 'ibrahim',  '1234', 'john_user@symfony.com', ['ROLE_USER'], 'http//:',12345678] ,
+            ['user2','reem ', ' fadel',  '1234', 'ana_user@symfony.com', ['ROLE_USER'], 'http//:',12345678]
         ];
     }
 }

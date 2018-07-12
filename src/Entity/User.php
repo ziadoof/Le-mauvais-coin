@@ -196,7 +196,7 @@ class User implements UserInterface, \Serializable
      */
     public function serialize(): string
     {
-        return serialize([$this->id, $this->username, $this->password]);
+        return serialize([$this->id, $this->username, $this->passowrd]);
     }
 
     /**
@@ -204,6 +204,6 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized): void
     {
-        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->username, $this->passowrd] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

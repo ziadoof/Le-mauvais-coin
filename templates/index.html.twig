@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}(LMC)Le Mauvais Coin {{ controller_name }}!{% endblock %}
+{% block title %}Le Mauvais Coin {% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-12 text-center">
             <h1 class="">Hello! ✅</h1>
-            This friendly message is coming from : Le Mauvais Coin
+            <a href="{{ path('security_login')}}"> Connexion</a>
         </div>
     </div>
 </div>
