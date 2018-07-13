@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class IndexController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     *@Route("/", name="index")
      */
     public function index()
     {

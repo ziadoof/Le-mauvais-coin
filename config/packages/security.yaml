@@ -30,7 +30,7 @@ security:
                   # Securisation des formulaires
                   csrf_token_generator: security.csrf.token_manager
                   # La page par defaut apres une connexion reussie
-                  default_target_path: Admin
+                  default_target_path: index
 
             logout:
                 # La route où se trouve le process de deconnexion
@@ -52,6 +52,7 @@ security:
         # - { path: ^/Admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: '^/Admin', roles: ROLE_ADMIN }
+        #- { path: ^/, roles: ROLE_USER }
 
 
 

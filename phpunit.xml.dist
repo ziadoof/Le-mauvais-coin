@@ -32,4 +32,5 @@
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
+    <env name="DATABASE_URL" value="mysql://root:damnsmile@127.0.0.1:3306/mauvaisCoin" />
 </phpunit>

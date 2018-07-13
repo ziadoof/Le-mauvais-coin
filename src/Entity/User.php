@@ -4,10 +4,18 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ *
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="user")
+ * @UniqueEntity(fields="email", message="Email déjà pris")
+ * @UniqueEntity(fields="username", message="Username déjà pris")
  */
+
 class User implements UserInterface, \Serializable
 {
     /**
@@ -18,27 +26,32 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
-    private $passowrd;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -100,12 +113,12 @@ class User implements UserInterface, \Serializable
 
     public function getPassword(): ?string
     {
-        return $this->passowrd;
+        return $this->password;
     }
 
-    public function setPassowrd(string $passowrd): self
+    public function setPassword(string $passowrd): self
     {
-        $this->passowrd = $passowrd;
+        $this->password = $passowrd;
 
         return $this;
     }
@@ -196,7 +209,7 @@ class User implements UserInterface, \Serializable
      */
     public function serialize(): string
     {
-        return serialize([$this->id, $this->username, $this->passowrd]);
+        return serialize([$this->id, $this->username, $this->password]);
     }
 
     /**
@@ -204,6 +217,6 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized): void
     {
-        [$this->id, $this->username, $this->passowrd] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
