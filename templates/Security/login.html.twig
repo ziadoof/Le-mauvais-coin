@@ -1,34 +1,58 @@
-{% extends 'base.html.twig' %}
- 
-{% block body %}
-    {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey }}
-        </div>
-    {% endif %}
+{% extends "layout.html.twig" %}
+{% block title %}LE MAUVAIS COIN{% endblock %}
+{% block content %}
+    {% block fos_user_content %}
+        <div class="container pt-lg-5 pt-3">
+            <div class="row mb-md-3 mb-lg-5">
+                <div class="col-12">
+                    <h1 class="text-center mt-3">LE MAUVAIS COIN</h1>
+                </div>
+            </div>
 
-    <div class="row">
-    <div class="col-sm-5">
-        <div class="well">
-            <form action="{{ path('security_login') }}" method="post">
-                <fieldset>
-                    <legend><i class="fa fa-lock" aria-hidden="true"></i> Connexion</legend>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="_password" class="form-control" />
-                    </div>
+            <div class="formLogin mt-5 col-md-4 offset-4">
+                <p class="text-center">Connexion</p>
+                {% if error %}
+                    <div class="alert alert-danger"
+                         role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <form action="{{ path('security_login') }}" method="post">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in
-                    </button>
-                </fieldset>
-            </form>
+                    <div class="formgroup">
+                        <label for="email">Votre email</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-user-circle"></i></div>
+                            </div>
+                            <input class="form-control" type="text" id="username" name="_username"
+                                   value="{{ last_username }}"
+                                   required="required"/>
+                        </div>
+                        <div class="formgroup my-4">
+                            <label for="password">Votre mot de passe</label><a class="float-right mr-1 washed" href="{{ csrf_token('authenticate') }}">mot de passe oublié ?</a>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                </div>
+                                <input class="form-control" type="password" id="password" name="_password"
+                                       required="required"/>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="checkbox mt-3 mr-3">
+                                    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                                    <label for="remember_me">Remember me</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <input type="submit" class="btn btn-primary" id="_submit"
+                                               name="_submit"
+                                               value="LOG IN"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-
-
+    {% endblock fos_user_content %}
 {% endblock %}

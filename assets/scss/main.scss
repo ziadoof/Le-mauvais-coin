@@ -1,5 +1,36 @@
+$backgroundBody: #efeeee;
+$backgroundContainer: #FFF;
+$site: #99C67F;
 body {
+  background-color: $backgroundBody;
+  font-family: Roboto;
+  font-size: 1em;
 
+  .container {
+    background-color: $backgroundContainer;
+    margin-top: 3em;
+    margin-bottom: 5em;
+    min-width: 87vw;
+    min-height: 40vw;
+    padding-top: 4em;
+    padding-bottom: 5em;
+  }
 
+  .alert-dismissible .close {
+    top: -8px;
+  }
+
+}
+.logo {
+
+  height: 70px;
+}
+.navbar {
+  background-color: whitesmoke ;
+}
+.login a{
+  display: inline;
+  float: right;
+  padding: 2px;
 }
 @import "~bootstrap/scss/bootstrap";

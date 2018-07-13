@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+    <header>
+        <nav class="navbar navbar-dark navbar-expand-md bg-faded justify-content-center">
+            <a class="navbar-brand d-flex w-50 mr-auto" href=
+            {% if app.user.hasRole('ROLE_ADMIN') %}"{{ path('Admin') }}"{% endif %}
+            {% if app.user.hasRole('ROLE_USER') %}"{{ path('index') }}"{% endif %}
+            <div class="text d-none d-lg-block">LE MAUVAIS COIN</div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+{% endblock %}

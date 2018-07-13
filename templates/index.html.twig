@@ -1,16 +1,12 @@
-{% extends 'base.html.twig' %}
-
+{% extends "layout.html.twig" %}
 {% block title %}Le Mauvais Coin {% endblock %}
-
-{% block body %}
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1 class="">Hello! ✅</h1>
-            <a href="{{ path('security_login')}}"> Connexion</a>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="">Le Mauvais Coin</h1>
+                Bienvenue User
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
