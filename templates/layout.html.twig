@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+    <header>
+        <nav class="navbar navbar-dark navbar-expand-md bg-faded justify-content-center">
+            <a href="" class="navbar-brand d-flex mr-auto"></a>
+            <img src="{{ asset('/images/log.png') }}" alt="logo" class="logo"/>
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+                <span class="navbar-toggler-icon">nouvelle annance</span>
+            </button>
+            <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+                <ul class="nav navbar-nav w-100 deconnect justify-content-end">
+                    <li class="nav-link flex-nowrap mr-sm-4">
+                        <a href="{{ path('security_login') }}">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="login pl-3 col-md-3">
+                {% if app.user==null %}
+                    <a href="{{ path('user_registration') }}"><span
+                                class="btn btn-outline-info btn-rounded waves-effect fas fa-user-plus"> Register</span>
+                    </a>
+                    <a href="{{ path('security_login') }}"><span
+                                class="btn btn-outline-info btn-rounded waves-effect fas fa-sign-in-alt"> Connexion</span></a>
+                {% endif %}
+                {% if app.user!=null %}
+                    <a href="{{ path('profile') }}"><span
+                                class="btn btn-outline-info btn-rounded waves-effect far fa-user"> Profile de {{ app.user.firstname }}</span></a>
+                    <a href="{{ path('security_logout') }}"><span
+                                class="btn btn-outline-info btn-rounded waves-effect fas fa-sign-out-alt"> Logout</span></a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+{% endblock %}

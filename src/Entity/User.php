@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="email", message="Email déjà pris")
  * @UniqueEntity(fields="username", message="Username déjà pris")
  */
-
 class User implements UserInterface, \Serializable
 {
     /**
@@ -58,7 +57,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [] ;
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -218,5 +217,15 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized): void
     {
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function hasRole(String $roles): bool
+    {
+        if ($this->roles == implode('', $roles)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class IndexController extends Controller
 {
     /**
-     *@Route("/", name="index")
+     * @Route("/", name="index")
      */
     public function index()
     {
@@ -22,5 +22,13 @@ class IndexController extends Controller
     public function admin()
     {
         return $this->render('Admin/index.html.twig');
+    }
+
+    /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile()
+    {
+        return $this->render('profile.html.twig');
     }
 }
