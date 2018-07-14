@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -68,6 +70,22 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $telephone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="user")
+     */
+    private $annonces;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
+    public function __construct()
+    {
+        $this->annonces = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -227,5 +245,48 @@ class User implements UserInterface, \Serializable
             return false;
         }
 
+    }
+
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces[] = $annonce;
+            $annonce->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->contains($annonce)) {
+            $this->annonces->removeElement($annonce);
+            // set the owning side to null (unless already changed)
+            if ($annonce->getUser() === $this) {
+                $annonce->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
     }
 }
