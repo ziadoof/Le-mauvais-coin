@@ -1,0 +1,46 @@
+{{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.lastname) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.username) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.email) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 d-inline">
+                    {{ form_row(form.password.first) }}
+                </div>
+                <div class="col-md-6 d-inline">
+                    {{ form_row(form.password.second) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.photo) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.telephone) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(form.region) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.department) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.city) }}
+                </div>
+            </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
