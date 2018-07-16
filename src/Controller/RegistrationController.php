@@ -25,8 +25,8 @@ class RegistrationController extends Controller
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
@@ -35,17 +35,22 @@ class RegistrationController extends Controller
             // Par defaut l'utilisateur aura toujours le rôle ROLE_USER
             $user->setRoles(['ROLE_USER']);
 
+
             // On enregistre l'utilisateur dans la base
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+            $this->addFlash(
+                'success',
+                'Votre nouveau compte a été enregistré, Vous pouvez vous connecter maintenant.'
+            );
 
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render(
-            'register.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->render('register.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 }

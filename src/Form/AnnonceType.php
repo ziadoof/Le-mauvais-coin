@@ -16,6 +16,7 @@ class AnnonceType extends AbstractType
             ->add('description')
             ->add('price')
             ->add('photos')
+            ->add('file', FileType::class, array('image_property' => 'webPath'))
             ->add('creationDate')
             ->add('category')
             ->add('user')
