@@ -59,7 +59,8 @@ class Category
     private $sp6;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="category", cascade={"persist"})
+     * @ORM\JoinColumn(name="annonce_id", referencedColumnName="id")
      */
     private $annonces;
 
@@ -68,7 +69,7 @@ class Category
         $this->annonces = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -172,7 +173,7 @@ class Category
     /**
      * @return Collection|Annonce[]
      */
-    public function getAnnonces(): Collection
+    public function getAnnonce(): Collection
     {
         return $this->annonces;
     }
@@ -180,7 +181,7 @@ class Category
     public function addAnnonce(Annonce $annonce): self
     {
         if (!$this->annonces->contains($annonce)) {
-            $this->annonces[] = $annonce;
+            $this->annonces []= $annonce;
             $annonce->setCategory($this);
         }
 

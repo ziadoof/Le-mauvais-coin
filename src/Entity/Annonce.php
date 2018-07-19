@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
@@ -43,7 +45,7 @@ class Annonce
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="annonces")
-     * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $category;
 
@@ -53,7 +55,7 @@ class Annonce
      */
     private $user;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -118,18 +120,6 @@ class Annonce
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -138,6 +128,18 @@ class Annonce
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

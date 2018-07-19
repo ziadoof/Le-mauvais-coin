@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\User;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Category;
+use App\Form\CategoryType;
 
 /**
  * @Route("/annonce")
@@ -29,10 +32,15 @@ class AnnonceController extends Controller
     public function new(Request $request): Response
     {
         $annonce = new Annonce();
+
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setCreationDate(new \DateTime("now"));
+            $annonce->setUser($this->getUser());
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($annonce);
             $em->flush();

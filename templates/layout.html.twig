@@ -11,10 +11,25 @@
             </button>
             <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
                 <ul class="nav navbar-nav w-100 deconnect justify-content-end">
-                    <li class="nav-link flex-nowrap mr-sm-4">
-                        <a href="{{ path('security_login') }}">
-                        </a>
-                    </li>
+
+                    {% if app.user==null %}
+                        <li class="nav-link flex-nowrap mr-sm-4">
+                            <a href="{{ path('security_login') }}">anonymous</a>
+                        </li>
+                    {% endif %}
+                    {% if app.user != null %}
+                        {% if app.user.getRoles == (['ROLE_USER']) %}
+                            <li class="nav-link flex-nowrap mr-sm-4">
+                                <a href="{{ path('security_login') }}">user</a>
+                            </li>
+
+                        {% elseif app.user.getRoles == (["ROLE_ADMIN"]) %}
+                            <li class="nav-link flex-nowrap mr-sm-4">
+                                <a href="{{ path('security_login') }}">admin</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+
                 </ul>
             </div>
             <div class="login pl-3 col-md-3">

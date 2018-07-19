@@ -88,7 +88,7 @@ class User implements UserInterface, \Serializable
         $this->annonces = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -134,9 +134,9 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    public function setPassword(string $passowrd): self
+    public function setPassword(string $password): self
     {
-        $this->password = $passowrd;
+        $this->password = $password;
 
         return $this;
     }
@@ -153,19 +153,12 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getRoles(): ?array
+    public function getRoles()
     {
-        $roles = $this->roles;
-
-        // Afin d'être sûr qu'un user a toujours au moins 1 rôle
-        if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
-        }
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles($roles): self
     {
         $this->roles = $roles;
 
@@ -289,6 +282,11 @@ class User implements UserInterface, \Serializable
         $this->city = $city;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstname();
     }
 
 }
