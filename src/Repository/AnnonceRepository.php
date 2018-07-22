@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ziadoof
+ * Date: 22/07/18
+ * Time: 14:30
+ */
 
 namespace App\Repository;
 
@@ -20,15 +26,15 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Annonce[] Returns an array of Annonce objects
+//     * @return Annonce[] Returns an array of Category objects
 //     */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -39,8 +45,8 @@ class AnnonceRepository extends ServiceEntityRepository
     /*
     public function findOneBySomeField($value): ?Annonce
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

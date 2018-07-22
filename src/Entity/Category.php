@@ -23,40 +23,6 @@ class Category
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $class;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp1;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp2;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp3;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp4;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $sp5;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $sp6;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="category", cascade={"persist"})
@@ -64,10 +30,18 @@ class Category
      */
     private $annonces;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Division", mappedBy="categoey")
+     */
+    private $divisions;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->divisions = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -86,89 +60,6 @@ class Category
         return $this;
     }
 
-    public function getClass(): ?string
-    {
-        return $this->class;
-    }
-
-    public function setClass(?string $class): self
-    {
-        $this->class = $class;
-
-        return $this;
-    }
-
-    public function getSp1(): ?string
-    {
-        return $this->sp1;
-    }
-
-    public function setSp1(?string $sp1): self
-    {
-        $this->sp1 = $sp1;
-
-        return $this;
-    }
-
-    public function getSp2(): ?string
-    {
-        return $this->sp2;
-    }
-
-    public function setSp2(?string $sp2): self
-    {
-        $this->sp2 = $sp2;
-
-        return $this;
-    }
-
-    public function getSp3(): ?string
-    {
-        return $this->sp3;
-    }
-
-    public function setSp3(?string $sp3): self
-    {
-        $this->sp3 = $sp3;
-
-        return $this;
-    }
-
-    public function getSp4(): ?string
-    {
-        return $this->sp4;
-    }
-
-    public function setSp4(?string $sp4): self
-    {
-        $this->sp4 = $sp4;
-
-        return $this;
-    }
-
-    public function getSp5(): ?float
-    {
-        return $this->sp5;
-    }
-
-    public function setSp5(?float $sp5): self
-    {
-        $this->sp5 = $sp5;
-
-        return $this;
-    }
-
-    public function getSp6(): ?float
-    {
-        return $this->sp6;
-    }
-
-    public function setSp6(?float $sp6): self
-    {
-        $this->sp6 = $sp6;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Annonce[]
@@ -195,6 +86,45 @@ class Category
             // set the owning side to null (unless already changed)
             if ($annonce->getCategory() === $this) {
                 $annonce->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    /**
+     * @return Collection|Division[]
+     */
+    public function getDivisions(): Collection
+    {
+        return $this->divisions;
+    }
+
+    public function addDivision(Division $division): self
+    {
+        if (!$this->divisions->contains($division)) {
+            $this->divisions[] = $division;
+            $division->setCategoey($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDivision(Division $division): self
+    {
+        if ($this->divisions->contains($division)) {
+            $this->divisions->removeElement($division);
+            // set the owning side to null (unless already changed)
+            if ($division->getCategoey() === $this) {
+                $division->setCategoey(null);
             }
         }
 

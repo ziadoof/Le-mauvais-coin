@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -30,24 +29,10 @@ class CategoryController extends Controller
     public function new(Request $request): Response
     {
         $category = new Category();
-
-        $annonce =new Annonce();
-        $annonce->setTitle('voiture');
-        $annonce->setDescription('Disel');
-        $annonce->setPrice(400);
-        $annonce->setPhotos('sp1');
-
-
-
-        $category->addAnnonce($annonce);
-
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $annonce->setCreationDate(new \DateTime("now"));
-            $annonce->setUser($this->getUser());
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();

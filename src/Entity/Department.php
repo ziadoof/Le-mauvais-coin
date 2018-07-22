@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,10 +29,20 @@ class Department
     private $shortCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Region")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region",inversedBy="departments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $region;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\City", mappedBy="department")
+     */
+    private $citys;
+
+    public function __construct()
+    {
+        $this->citys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,5 +88,36 @@ class Department
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|City[]
+     */
+    public function getCitys(): Collection
+    {
+        return $this->citys;
+    }
+
+    public function addCity(City $city): self
+    {
+        if (!$this->citys->contains($city)) {
+            $this->citys[] = $city;
+            $city->setDepartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCity(City $city): self
+    {
+        if ($this->citys->contains($city)) {
+            $this->citys->removeElement($city);
+            // set the owning side to null (unless already changed)
+            if ($city->getDepartment() === $this) {
+                $city->setDepartment(null);
+            }
+        }
+
+        return $this;
     }
 }

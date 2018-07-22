@@ -34,7 +34,7 @@ class City
     private $postalCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Department")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Department",inversedBy="citys")
      * @ORM\JoinColumn(nullable=false)
      */
     private $department;
