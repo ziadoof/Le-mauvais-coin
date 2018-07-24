@@ -1,4 +1,4 @@
-var $ = require('jquery');
+import $ from "jquery";
 $(document).on('change', '#user_region, #user_department', function () {
   let $field = $(this)
   let $regionField = $('#user_region')
@@ -15,4 +15,19 @@ $(document).on('change', '#user_region, #user_department', function () {
     // On remplace notre <select> actuel
     $(target).replaceWith($input)
   })
+})
+
+
+$(document).on('change', '#annonce_category', function () {
+    let $field = $(this)
+    let $form = $field.closest('form')
+    let target = '#' + $field.attr('id').replace('category', 'division')
+    // Les données à envoyer en Ajax
+    let data = {}
+    data[$field.attr('name')] = $field.val()
+    // On soumet les données
+    $.post($form.attr('action'), data).then(function (data) {
+        let $input = $(data).find(target)
+        $(target).replaceWith($input)
+    })
 })

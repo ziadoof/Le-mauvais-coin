@@ -31,7 +31,7 @@ class Category
     private $annonces;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Division", mappedBy="categoey")
+     * @ORM\OneToMany(targetEntity="App\Entity\Division", mappedBy="category")
      */
     private $divisions;
 
@@ -112,7 +112,7 @@ class Category
     {
         if (!$this->divisions->contains($division)) {
             $this->divisions[] = $division;
-            $division->setCategoey($this);
+            $division->setCategory($this);
         }
 
         return $this;
@@ -123,11 +123,16 @@ class Category
         if ($this->divisions->contains($division)) {
             $this->divisions->removeElement($division);
             // set the owning side to null (unless already changed)
-            if ($division->getCategoey() === $this) {
-                $division->setCategoey(null);
+            if ($division->getCategory() === $this) {
+                $division->setCategory(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

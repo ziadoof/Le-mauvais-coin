@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Specifications{% endblock %}
+
+{% block body %}
+    <h1>Create new Specifications</h1>
+
+    {{ include('specifications/_form.html.twig') }}
+
+    <a href="{{ path('specifications_index') }}">back to list</a>
+{% endblock %}

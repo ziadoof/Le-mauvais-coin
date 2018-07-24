@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,40 +24,26 @@ class Division
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp1;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp2;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp3;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sp4;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $sp5;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $sp6;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="divisions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $categoey;
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="division")
+     */
+    private $annonces;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Specifications", mappedBy="division")
+     */
+    private $specifications;
+
+    public function __construct()
+    {
+        $this->annonces = new ArrayCollection();
+        $this->specifications = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -74,86 +62,80 @@ class Division
         return $this;
     }
 
-    public function getSp1(): ?string
+    public function getCategory(): ?Category
     {
-        return $this->sp1;
+        return $this->category;
     }
 
-    public function setSp1(?string $sp1): self
+    public function setCategory(?Category $category): self
     {
-        $this->sp1 = $sp1;
+        $this->category = $category;
 
         return $this;
     }
 
-    public function getSp2(): ?string
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
     {
-        return $this->sp2;
+        return $this->annonces;
     }
 
-    public function setSp2(?string $sp2): self
+    public function addAnnonce(Annonce $annonce): self
     {
-        $this->sp2 = $sp2;
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces[] = $annonce;
+            $annonce->setDivision($this);
+        }
 
         return $this;
     }
 
-    public function getSp3(): ?string
+    public function removeAnnonce(Annonce $annonce): self
     {
-        return $this->sp3;
+        if ($this->annonces->contains($annonce)) {
+            $this->annonces->removeElement($annonce);
+            // set the owning side to null (unless already changed)
+            if ($annonce->getDivision() === $this) {
+                $annonce->setDivision(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 
-    public function setSp3(?string $sp3): self
+    /**
+     * @return Collection|Specifications[]
+     */
+    public function getSpecifications(): Collection
     {
-        $this->sp3 = $sp3;
+        return $this->specifications;
+    }
+
+    public function addSpecification(Specifications $specification): self
+    {
+        if (!$this->specifications->contains($specification)) {
+            $this->specifications[] = $specification;
+            $specification->setDivision($this);
+        }
 
         return $this;
     }
 
-    public function getSp4(): ?string
+    public function removeSpecification(Specifications $specification): self
     {
-        return $this->sp4;
-    }
-
-    public function setSp4(?string $sp4): self
-    {
-        $this->sp4 = $sp4;
-
-        return $this;
-    }
-
-    public function getSp5(): ?float
-    {
-        return $this->sp5;
-    }
-
-    public function setSp5(?float $sp5): self
-    {
-        $this->sp5 = $sp5;
-
-        return $this;
-    }
-
-    public function getSp6(): ?float
-    {
-        return $this->sp6;
-    }
-
-    public function setSp6(?float $sp6): self
-    {
-        $this->sp6 = $sp6;
-
-        return $this;
-    }
-
-    public function getCategoey(): ?Category
-    {
-        return $this->categoey;
-    }
-
-    public function setCategoey(?Category $categoey): self
-    {
-        $this->categoey = $categoey;
+        if ($this->specifications->contains($specification)) {
+            $this->specifications->removeElement($specification);
+            // set the owning side to null (unless already changed)
+            if ($specification->getDivision() === $this) {
+                $specification->setDivision(null);
+            }
+        }
 
         return $this;
     }

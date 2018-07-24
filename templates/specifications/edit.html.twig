@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Specifications{% endblock %}
+
+{% block body %}
+    <h1>Edit Specifications</h1>
+
+    {{ include('specifications/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('specifications_index') }}">back to list</a>
+
+    {{ include('specifications/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Category;
+use App\Entity\Division;
+use App\Entity\Specifications;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,13 +32,35 @@ class AnnonceController extends Controller
     public function new(Request $request): Response
     {
         $annonce = new Annonce();
+        $category = new Category();
+        $specifications = new Specifications();
+        $division = new Division();
+
+        $specifications->setSp1('sp1');
+        $specifications->setSp2('sp2');
+
+        $division->addSpecification($specifications);
+        $category->addDivision($division);
+        $annonce->setCategory($category);
+
+
+
+
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $annonce->setCreationDate(new \DateTime('NOW'));
+            $annonce->setUser($this->getUser());
+            $annonce->setPhotos("ddddddd");
             $em = $this->getDoctrine()->getManager();
             $em->persist($annonce);
             $em->flush();
+            $this->addFlash(
+                'success',
+                'Votre nouvelle annonce a été enregistré.'
+            );
 
             return $this->redirectToRoute('annonce_index');
         }

@@ -55,6 +55,12 @@ class Annonce
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Division", inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $division;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,6 +146,18 @@ class Annonce
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getDivision(): ?Division
+    {
+        return $this->division;
+    }
+
+    public function setDivision(?Division $division): self
+    {
+        $this->division = $division;
 
         return $this;
     }
