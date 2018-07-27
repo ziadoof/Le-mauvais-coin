@@ -33,4 +33,26 @@ body {
   float: right;
   padding: 2px;
 }
+.ana .form-group{
+  margin-right: 8px;
+}
+#annonce_specifications_0{
+  margin-left: inherit;
+}
+
+.annonce {
+
+  border: #0b2e13;
+  border-style: solid;
+  height: max-content;
+}
+.annonce img {
+  height: 70%;
+  max-width: fit-content;
+}
+.price{
+  color: #fd7e14;
+  border-style: inherit;
+
+}
 @import "~bootstrap/scss/bootstrap";

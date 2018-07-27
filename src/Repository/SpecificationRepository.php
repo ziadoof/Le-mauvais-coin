@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ziadoof
+ * Date: 24/07/18
+ * Time: 17:33
+ */
 
 namespace App\Repository;
 
@@ -12,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Specification[]    findAll()
  * @method Specification[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SpecificationsRepository extends ServiceEntityRepository
+class SpecificationRepository
 {
     public function __construct(RegistryInterface $registry)
     {

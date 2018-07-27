@@ -41,8 +41,6 @@ class Category
         $this->divisions = new ArrayCollection();
     }
 
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -72,7 +70,7 @@ class Category
     public function addAnnonce(Annonce $annonce): self
     {
         if (!$this->annonces->contains($annonce)) {
-            $this->annonces []= $annonce;
+            $this->annonces[] = $annonce;
             $annonce->setCategory($this);
         }
 

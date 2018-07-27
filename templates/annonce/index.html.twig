@@ -1,26 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends "layout.html.twig" %}
 
 {% block title %}Annonce index{% endblock %}
-
-{% block body %}
+{% block content %}
     <h1>Annonce index</h1>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Photos</th>
-                <th>CreationDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
+{#
         <tbody>
         {% for annonce in annonces %}
             <tr>
-                <td>{{ annonce.id }}</td>
+
                 <td>{{ annonce.title }}</td>
                 <td>{{ annonce.description }}</td>
                 <td>{{ annonce.price }}</td>
@@ -36,8 +25,30 @@
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
+        </tbody>#}
     </table>
 
     <a href="{{ path('annonce_new') }}">Create new</a>
+
+    <div class="container text-center">
+        <div class="row">
+            {% for annonce in annonces %}
+            <div class=" col-md-3 annonce mx-1 my-1">
+                <h4>{{ annonce.title }}</h4>
+                <img src="{{ asset('/uploads/annonceImages/')}}{{ annonce.photos}}" alt="" class="mb-3 col-md-6"/>
+
+                <p class="price">{{ annonce.division.category }}</p>
+                <p class="price">{{ annonce.division }}</p>
+                <p class="price">{{ annonce.price }}</p>
+                <p class="price">{{ annonce.creationDate|date("d/m/Y") }}</p>
+                <p class="price">{{ annonce.specification.0.sp1 }}</p>
+                {{ dump(annonce.category) }}
+
+                <a class="btn-primary float-right" href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir</a>
+
+            </div>
+{% endfor %}
+        </div>
+
+    </div>
 {% endblock %}

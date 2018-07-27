@@ -1,5 +1,66 @@
+
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+            {{ form_start(form) }}
+<div class="container pt-0">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.category) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.division) }}
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                {% for row in form.specifications %}
+                        <div class="ana" >
+                            {{ form_row(row) }}
+                        </div>
+                {% endfor %}
+            </div>
+{#
+            <div class="row">
+                <div class="col-md-4" >
+                    {{ form_row(form.specifications.0.sp1) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.specifications.0.sp2) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.specifications.0.sp3) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" >
+                    {{ form_row(form.specifications.0.sp4) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.specifications.0.sp5) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.specifications.0.sp6) }}
+                </div>
+            </div>#}
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="col-md-2 offset-4">
+                {{ form_row(form.price) }}
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.description) }}
+                </div>
+            </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Créer votre annonce !</button>
+        </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

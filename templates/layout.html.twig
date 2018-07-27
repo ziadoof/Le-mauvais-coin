@@ -21,6 +21,7 @@
                         {% if app.user.getRoles == (['ROLE_USER']) %}
                             <li class="nav-link flex-nowrap mr-sm-4">
                                 <a href="{{ path('security_login') }}">user</a>
+                                <a href="{{ path('annonce_new') }}">Ajouter nouvelle annonce</a>
                             </li>
 
                         {% elseif app.user.getRoles == (["ROLE_ADMIN"]) %}

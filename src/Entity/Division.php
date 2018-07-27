@@ -35,7 +35,7 @@ class Division
     private $annonces;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Specifications", mappedBy="division")
+     * @ORM\OneToMany(targetEntity="App\Entity\Specification", mappedBy="division")
      */
     private $specifications;
 
@@ -45,7 +45,7 @@ class Division
         $this->specifications = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -110,14 +110,14 @@ class Division
     }
 
     /**
-     * @return Collection|Specifications[]
+     * @return Collection|Specification[]
      */
     public function getSpecifications(): Collection
     {
         return $this->specifications;
     }
 
-    public function addSpecification(Specifications $specification): self
+    public function addSpecification(Specification $specification): self
     {
         if (!$this->specifications->contains($specification)) {
             $this->specifications[] = $specification;
@@ -127,7 +127,7 @@ class Division
         return $this;
     }
 
-    public function removeSpecification(Specifications $specification): self
+    public function removeSpecification(Specification $specification): self
     {
         if ($this->specifications->contains($specification)) {
             $this->specifications->removeElement($specification);

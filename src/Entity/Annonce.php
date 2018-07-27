@@ -35,6 +35,7 @@ class Annonce
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     private $photos;
 
@@ -60,6 +61,12 @@ class Annonce
      * @ORM\JoinColumn(nullable=false)
      */
     private $division;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Specification", mappedBy="annonce", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="specification_id", referencedColumnName="id")
+     */
+    private $specifications;
 
     public function getId(): ?int
     {
@@ -160,5 +167,48 @@ class Annonce
         $this->division = $division;
 
         return $this;
+    }
+
+    public function setSpecifications(?Specification $specification): self
+    {
+        $this->specifications[] = $specification;
+
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->specifications = new ArrayCollection();
+    }
+
+    public function addSpecification(Specification $specification): self
+    {
+        if (!$this->specifications->contains($specification)) {
+            $this->specifications[] = $specification;
+            $specification->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecification(Specification $specification): self
+    {
+        if ($this->specifications->contains($specification)) {
+            $this->specifications->removeElement($specification);
+            // set the owning side to null (unless already changed)
+            if ($specification->getAnnonce() === $this) {
+                $specification->setAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specification[]
+     */
+    public function getSpecifications(): Collection
+    {
+        return $this->specifications;
     }
 }

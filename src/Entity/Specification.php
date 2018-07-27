@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SpecificationsRepository")
  */
-class Specifications
+class Specification
 {
     /**
      * @ORM\Id()
@@ -52,7 +52,13 @@ class Specifications
      */
     private $division;
 
-    public function getId()
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Annonce", inversedBy="specifications")
+     *
+     */
+    private $annonce;
+
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -139,5 +145,21 @@ class Specifications
         $this->division = $division;
 
         return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->getDivision()->getName();
     }
 }

@@ -13,7 +13,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class AnnonceType extends AbstractType
 {
@@ -23,7 +24,19 @@ class AnnonceType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('price');
+            ->add('price')
+            ->add('photos', FileType::class)
+            ->add('specifications',     CollectionType::class ,[
+                'entry_type' => SpecificationType::class,
+                'entry_options' => [
+                            'label' =>false
+                ],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true
+                ]
+                , array('attr' => array('class' => 'col-md-6'))
+            );
             //->add('photos')
        $builder
            ->add('category', EntityType::class, [
